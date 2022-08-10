@@ -1,3 +1,4 @@
+.idea/
 
 ###> symfony/framework-bundle ###
 /.env.local
@@ -9,4 +10,9 @@
 /vendor/
 ###< symfony/framework-bundle ###
 
-.idea/
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
