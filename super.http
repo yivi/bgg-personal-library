@@ -1,0 +1,5 @@
+GET https://boardgamegeek.com/xmlapi2/thing?id=162886,157354&stats=1
+
+###
+
+GET https://boardgamegeek.com/xmlapi2/collection?username=Portalludico
