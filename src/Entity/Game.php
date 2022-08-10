@@ -8,13 +8,16 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
+#[ORM\Table('games')]
 class Game
 {
 
     public function __construct(
         #[ORM\Id]
         #[ORM\Column]
-        public readonly int $id,
+        public readonly int $bggId,
+        #[ORM\Column(type: 'string')]
+        public readonly string $type,
         #[ORM\Column(type: 'string')]
         public readonly string $name,
         #[ORM\Column(type: 'integer')]
@@ -43,6 +46,9 @@ class Game
         public readonly int $usersRated,
         #[ORM\Column(type: 'float')]
         public readonly float $averageWeight,
+        #[ORM\Column(type: 'json')]
+        public array $expansions = [],
+        public readonly int $expansionTo = 0
     ) {
     }
 
