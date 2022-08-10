@@ -15,7 +15,6 @@ class Service
     }
 
     /**
-     *
      * @return array<Game>
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
@@ -32,23 +31,25 @@ class Service
 
         foreach ($items->children() as $item) {
             $id            = (int)$item->attributes()['id'];
+            $gameType      = (string)$item->attributes()['type'];
             $gameName      = (string)$item->name->attributes()['value'];
             $yearPublished = (int)$item->yearpublished->attributes()['value'];
             $minPlayers    = (int)$item->minplayers->attributes()['value'];
-            $maxPlayers    = (int)$item->minplaytime->attributes()['value'];
+            $maxPlayers    = (int)$item->maxplayers->attributes()['value'];
             $minPlaytime   = (int)$item->minplaytime->attributes()['value'];
             $maxPlaytime   = (int)$item->maxplaytime->attributes()['value'];
             $minAge        = (int)$item->minage->attributes()['value'];
 
-            $categories = [];
-            $mechanics  = [];
-            $designers  = [];
-            $publisher  = '';
+            $categories  = [];
+            $mechanics   = [];
+            $designers   = [];
+            $publisher   = '';
+            $expansionTo = 0;
 
             foreach ($item->link as $link) {
-                $type  = (string)$link->attributes()['type'];
-                $value = (string)$link->attributes()['value'];
-                switch ($type) {
+                $linkType = (string)$link->attributes()['type'];
+                $value    = (string)$link->attributes()['value'];
+                switch ($linkType) {
                     case 'boardgamemechanic':
                         $mechanics[] = $value;
                         break;
@@ -63,6 +64,12 @@ class Service
                             continue 2;
                         }
                         $publisher = $value;
+                        break;
+                    case 'boardgameexpansion':
+                        if ($gameType !== 'boardgameexpansion' || 'true' !== (string)$link->attributes()['inbound']) {
+                            break;
+                        }
+                        $expansionTo = (int)$link->attributes()['id'];
                 }
             }
 
@@ -70,22 +77,24 @@ class Service
             $usersRated = (int)$item->statistics->ratings->usersrated->attributes()['value'];
             $weight     = (float)$item->statistics->ratings->averageweight->attributes()['value'];
 
-            $g[] = new Game(
-                $id,
-                $gameName,
-                $yearPublished,
-                $minPlayers,
-                $maxPlayers,
-                $minPlaytime,
-                $maxPlaytime,
-                $minAge,
-                $categories,
-                $mechanics,
-                $designers,
-                $publisher,
-                $rating,
-                $usersRated,
-                $weight
+            $g[$id] = new Game(
+                             $id,
+                             $gameType,
+                             $gameName,
+                             $yearPublished,
+                             $minPlayers,
+                             $maxPlayers,
+                             $minPlaytime,
+                             $maxPlaytime,
+                             $minAge,
+                             $categories,
+                             $mechanics,
+                             $designers,
+                             $publisher,
+                             $rating,
+                             $usersRated,
+                             $weight,
+                expansionTo: $expansionTo
             );
         }
 
@@ -111,11 +120,7 @@ class Service
             $g[] = (int)$game->attributes()['objectid'];
         }
 
-        dump(count($g));
-        $g = array_unique($g);
-        dump(count($g));
-
-        return $g;
+        return array_unique($g);
     }
 
 }
