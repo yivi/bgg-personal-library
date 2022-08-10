@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <table class="table is-striped is-fullwidth is-hoverable">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>📈BGG</th>
+            <th>👥 Min</th>
+            <th>👥 Max</th>
+            <th>⏳Min</th>
+            <th>⌛️Max</th>
+            <th>📅</th>
+        </tr>
+        </thead>
+        {% for game in games %}
+            <tr>
+                <td class="title is-4">{{ game.name }}</td>
+                <td>{{ game.rating|round(1) }}</td>
+                <td>{{ game.minPlayers }}👤</td>
+                <td>{{ game.maxPlayers }}👤</td>
+                <td>{{ game.minPlaytime }}'</td>
+                <td>{{ game.maxPlaytime }}'</td>
+                <td>{{ game.yearPublished }}</td>
+            </tr>
+            <tr>
+                <td colspan="7" class="is-size-7">
+                    {% if game.mechanics is not empty %}
+                        <span class="title is-6">🛠</span>: {{ game.mechanics|join(', ') }}
+                    {% endif %}
+                    {% if game.categories is not empty %}
+                    <span class="title is-6">🧩</span>: {{ game.categories|join(', ') }}
+                    {% endif %}<br/>
+                    {% if game.designers is not empty %}
+                        <span class="title is-6">✍️</span>: {{ game.designers|join(', ') }}
+                    {% endif %}
+                    {% if game.publisher is not empty %}
+                        <span class="title is-6">🏭</span>: {{ game.publisher }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock body %}
