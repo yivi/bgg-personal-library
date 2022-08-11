@@ -48,7 +48,7 @@ class Game
         public readonly float $averageWeight,
         #[ORM\Column(type: 'json')]
         public array $expansions = [],
-        public readonly int $expansionTo = 0
+        public readonly array $expansionTo = []
     ) {
     }
 

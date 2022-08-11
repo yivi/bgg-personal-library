@@ -3,10 +3,11 @@
 
 namespace App\Console;
 
-use App\Bgg\Service;
+use App\Service\BggCommunication;
 use App\Entity\GameCategory;
 use App\Entity\GameDesigner;
 use App\Entity\GameMechanic;
+use App\Service\ImportData;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -18,7 +19,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 class BggImporter extends Command
 {
 
-    public function __construct(private readonly Service $bggService, private readonly EntityManagerInterface $em)
+    public function __construct(
+        private readonly BggCommunication $bggService,
+        private readonly EntityManagerInterface $em,
+        private readonly ImportData $data,
+    )
     {
         parent::__construct();
     }
@@ -36,7 +41,10 @@ class BggImporter extends Command
         $this->em->getConnection()->executeQuery('TRUNCATE game_designers');
         $this->em->getConnection()->executeQuery('TRUNCATE game_categories');
 
-        $gameIds = $this->bggService->getCollection($input->getArgument('username'));
+        $username = $input->getArgument('username');
+
+        // TODO: Need to check for 202 status and throw an exception here.
+        $gameIds = $this->bggService->getCollection($username);
         $games   = $this->bggService->getGames(...$gameIds);
 
         $designers  = [];
@@ -44,9 +52,14 @@ class BggImporter extends Command
         $categories = [];
 
         foreach ($games as $game) {
+            // Dealing with expansions.
+            // These aren't saved directly, but simply stored attached to the main game they extend
             if ($game->type === 'boardgameexpansion') {
-                if (isset($games[$game->expansionTo])) {
-                    $games[$game->expansionTo]->expansions[] = $game->name;
+                // A game may be an extension to multiple other games, which I thinks happens mostly (solely?) because multiple editions
+                foreach ($game->expansionTo as $expansionTo) {
+                    if (isset($games[$expansionTo])) {
+                        $games[$expansionTo]->expansions[] = $game->name;
+                    }
                 }
                 unset($games[$game->bggId]);
             }
@@ -72,6 +85,8 @@ class BggImporter extends Command
         }
 
         $this->em->flush();
+
+        $this->data->storeImportData($username);
 
         return Command::SUCCESS;
     }

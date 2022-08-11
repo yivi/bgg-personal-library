@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace App\Bgg;
+namespace App\Service;
 
 
 use App\Entity\Game;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class Service
+class BggCommunication
 {
 
     public function __construct(private readonly HttpClientInterface $client)
@@ -44,7 +44,7 @@ class Service
             $mechanics   = [];
             $designers   = [];
             $publisher   = '';
-            $expansionTo = 0;
+            $expansionTo = [];
 
             foreach ($item->link as $link) {
                 $linkType = (string)$link->attributes()['type'];
@@ -69,7 +69,7 @@ class Service
                         if ($gameType !== 'boardgameexpansion' || 'true' !== (string)$link->attributes()['inbound']) {
                             break;
                         }
-                        $expansionTo = (int)$link->attributes()['id'];
+                        $expansionTo[] = (int)$link->attributes()['id'];
                 }
             }
 
