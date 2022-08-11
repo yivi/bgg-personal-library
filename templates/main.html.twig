@@ -1,15 +1,26 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+    {% set sortColumn = sort.sortColumn.value %}
+    {% set sortOrder = sort.sortOrder.value %}
+    {% set columns = {
+        name: 'Name'|trans,
+        rating: '📈BGG'|trans,
+        minPlayers: '👥Min'|trans,
+        maxPlayers: '👥Max'|trans,
+        minPlaytime: '⏳Min'|trans,
+        maxPlaytime: '⌛️Max'|trans,
+        yearPublished: '📅'
+    } %}
+    {% dump(sort) %}
     <table class="table is-striped is-fullwidth is-hoverable">
         <thead>
         <tr>
-            <th>Nombre</th>
-            <th>📈BGG</th>
-            <th>👥 Min</th>
-            <th>👥 Max</th>
-            <th>⏳Min</th>
-            <th>⌛️Max</th>
-            <th>📅</th>
+            {% for key, label in columns %}
+                <th>
+                    <a href="{{ path('library', {orderBy: key, order: sortColumn == key and sortOrder == 'desc' ? 'asc' : 'desc' }) }}">{{ label }}</a>
+                    {% if sortColumn == key %}{{ sortOrder == 'asc' ? '🔼' : '🔽' }}{% endif %}
+                </th>
+            {% endfor %}
         </tr>
         </thead>
         {% for game in games %}

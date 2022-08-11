@@ -10,6 +10,7 @@
     "ext-simplexml": "*",
     "ext-xml": "*",
     "ext-xmlreader": "*",
+    "azjezz/psl": "^2.0",
     "doctrine/annotations": "^1.0",
     "doctrine/doctrine-bundle": "^2.7",
     "doctrine/doctrine-migrations-bundle": "^3.2",

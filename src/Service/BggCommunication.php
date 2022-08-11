@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-
 use App\Entity\Game;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\HttpClientInterface;

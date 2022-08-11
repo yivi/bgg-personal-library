@@ -3,10 +3,10 @@
 
 namespace App\Console;
 
-use App\Service\BggCommunication;
 use App\Entity\GameCategory;
 use App\Entity\GameDesigner;
 use App\Entity\GameMechanic;
+use App\Service\BggCommunication;
 use App\Service\ImportData;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -23,8 +23,7 @@ class BggImporter extends Command
         private readonly BggCommunication $bggService,
         private readonly EntityManagerInterface $em,
         private readonly ImportData $data,
-    )
-    {
+    ) {
         parent::__construct();
     }
 

@@ -1,3 +1,4 @@
+{% trans_default_domain 'app' %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,15 +18,22 @@
 {% block body %}{% endblock %}
 
 <footer class="footer">
-{% block footer %}
-    <div class="content has-text-centered">
-        <p>
-            <a href="https://www.boardgamegeek.com" title="BoardGameGeek">BGG</a> Personal Library. Game data sourced from BGG directly. List of games sourced from user <a href="https://boardgamegeek.com/collection/user/{{ import.username }}">{{ import.username }}</a>.
-        </p>
-        <p>Last data import performed at {{ import.dateTime }}.</p>
-        <p>Code can be found <a href="https://github.com/yivi/bgg-personal-library" title="Github Repo">here</a>. Live long and prosper. 🖖</p>
-    </div>
-{% endblock %}
+    {% block footer %}
+        <div class="content has-text-centered">
+            <p>
+                {% trans with {
+                    '%bggLink%': '<a href="https://www.boardgamegeek.com" title="BoardGameGeek">BGG</a>',
+                    '%userLink%': '<a href="https://boardgamegeek.com/collection/user/' ~ import.username  ~ '">' ~ import.username ~ '</a>' } %}%bggLink% Personal Library. Game data sourced from BGG directly. List of games sourced from user %userLink%.{% endtrans %}
+
+            </p>
+            <p>{% trans with {'%dateTime%': import.dateTime} %}Last data import performed at %dateTime%{% endtrans %}
+                .</p>
+            <p>{% trans with {
+                    '%openGitHubLink%': '<a href="https://github.com/yivi/bgg-personal-library" title="Github Repo">',
+                    '%closeGitHubLink%': '</a>'
+                } %}Code can be found %openGitHubLink%here%closeGitHubLink%. Live long and prosper. 🖖{% endtrans %}</p>
+        </div>
+    {% endblock %}
 </footer>
 </body>
 </html>

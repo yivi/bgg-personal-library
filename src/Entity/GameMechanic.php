@@ -14,8 +14,8 @@ class GameMechanic
     public function __construct(
         #[ORM\Id]
         #[ORM\Column(type: 'string')]
-        public readonly string $name)
-    {
+        public readonly string $name
+    ) {
     }
 
 }
