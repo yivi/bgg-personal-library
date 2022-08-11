@@ -46,6 +46,9 @@
                     {% if game.publisher is not empty %}
                         <span class="title is-6">🏭</span>: {{ game.publisher }}
                     {% endif %}
+                    {% if game.expansions is not empty %}
+                        <span class="title is-6">⚙️</span> {{ game.expansions|join(', ') }}
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

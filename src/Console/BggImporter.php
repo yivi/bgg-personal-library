@@ -9,6 +9,7 @@ use App\Entity\GameMechanic;
 use App\Service\BggCommunication;
 use App\Service\ImportData;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -23,6 +24,7 @@ class BggImporter extends Command
         private readonly BggCommunication $bggService,
         private readonly EntityManagerInterface $em,
         private readonly ImportData $data,
+        private readonly LoggerInterface $logger,
     ) {
         parent::__construct();
     }
@@ -44,7 +46,9 @@ class BggImporter extends Command
 
         // TODO: Need to check for 202 status and throw an exception here.
         $gameIds = $this->bggService->getCollection($username);
-        $games   = $this->bggService->getGames(...$gameIds);
+        $this->logger->info("Downloaded game list from user");
+        $games = $this->bggService->getGames(...$gameIds);
+        $this->logger->info("Downloaded game info");
 
         $designers  = [];
         $mechanics  = [];
@@ -54,13 +58,17 @@ class BggImporter extends Command
             // Dealing with expansions.
             // These aren't saved directly, but simply stored attached to the main game they extend
             if ($game->type === 'boardgameexpansion') {
-                // A game may be an extension to multiple other games, which I thinks happens mostly (solely?) because multiple editions
+                // A game may be an extension to multiple other games, which I think happens mostly (solely?) because multiple editions
+
                 foreach ($game->expansionTo as $expansionTo) {
                     if (isset($games[$expansionTo])) {
                         $games[$expansionTo]->expansions[] = $game->name;
+
+                        unset($games[$game->bggId]);
+                        continue 2;
                     }
                 }
-                unset($games[$game->bggId]);
+                $this->logger->info('Found expansion, but no corresponding main game: ' . $game->name);
             }
             $this->em->persist($game);
 
