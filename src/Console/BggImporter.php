@@ -55,11 +55,9 @@ class BggImporter extends Command
         $categories = [];
 
         foreach ($games as $game) {
-            // Dealing with expansions.
-            // These aren't saved directly, but simply stored attached to the main game they extend
+            // Dealing with expansions. These aren't saved directly, but simply stored attached to the main game they extend
             if ($game->type === 'boardgameexpansion') {
                 // A game may be an extension to multiple other games, which I think happens mostly (solely?) because multiple editions
-
                 foreach ($game->expansionTo as $expansionTo) {
                     if (isset($games[$expansionTo])) {
                         $games[$expansionTo]->expansions[] = $game->name;
