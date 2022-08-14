@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9337823edae117b57497e85821c74a6a",
+    "content-hash": "8cdcdd530a4136b2fb42e4b7bc2932d6",
     "packages": [
         {
             "name": "azjezz/psl",
@@ -79,6 +79,63 @@
                 }
             ],
             "time": "2022-06-07T22:08:07+00:00"
+        },
+        {
+            "name": "camelot/doctrine-postgres-bundle",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CamelotProject/doctrine-postgres-bundle.git",
+                "reference": "fedf5f9d9909294422cf05e59277a61685d45a64"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CamelotProject/doctrine-postgres-bundle/zipball/fedf5f9d9909294422cf05e59277a61685d45a64",
+                "reference": "fedf5f9d9909294422cf05e59277a61685d45a64",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^2.9 || ^3.0",
+                "doctrine/orm": "^2.7 || ^3.0",
+                "ext-pdo_pgsql": "*",
+                "martin-georgiev/postgresql-for-doctrine": "^1.5",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "camelot/coding-style": "^3.0",
+                "dama/doctrine-test-bundle": "^6.2",
+                "doctrine/doctrine-fixtures-bundle": "^3.3",
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "phpunit/phpunit": "^9.5",
+                "psalm/plugin-phpunit": "^0.16",
+                "symfony/dotenv": "^6.0",
+                "symfony/framework-bundle": "^6.0",
+                "symfony/phpunit-bridge": "^6.0",
+                "symfony/yaml": "^6.0",
+                "vimeo/psalm": "^4.17"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Camelot\\DoctrinePostgres\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gawain Lynch",
+                    "email": "gawain.lynch@gamil.com"
+                }
+            ],
+            "description": "PostgreSQL specific functionality for Pentangle",
+            "support": {
+                "issues": "https://github.com/CamelotProject/doctrine-postgres-bundle/issues",
+                "source": "https://github.com/CamelotProject/doctrine-postgres-bundle/tree/v2.1.0"
+            },
+            "time": "2022-01-04T15:57:52+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -1594,6 +1651,83 @@
                 }
             ],
             "time": "2022-07-28T22:46:52+00:00"
+        },
+        {
+            "name": "martin-georgiev/postgresql-for-doctrine",
+            "version": "v1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/martin-georgiev/postgresql-for-doctrine.git",
+                "reference": "6b515bf979d9cfec23af1bf6ca93aa75ef79d58c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/martin-georgiev/postgresql-for-doctrine/zipball/6b515bf979d9cfec23af1bf6ca93aa75ef79d58c",
+                "reference": "6b515bf979d9cfec23af1bf6ca93aa75ef79d58c",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "~2.5||~3.0",
+                "ext-ctype": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": "^7.2||^8.0"
+            },
+            "require-dev": {
+                "doctrine/orm": "~2.5||~3.0",
+                "friendsofphp/php-cs-fixer": "^3.2",
+                "php-coveralls/php-coveralls": "^2.5",
+                "phpstan/phpstan": "^1.1",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^8.5||^9.5",
+                "qossmic/deptrac-shim": "^0.14",
+                "symfony/cache": "^4.0||^5.0||^6.0"
+            },
+            "suggest": {
+                "doctrine/orm": "~2.5||~3.0",
+                "php": "^7.4||^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MartinGeorgiev\\": "src/MartinGeorgiev/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Martin Georgiev",
+                    "email": "martin.georgiev@gmail.com",
+                    "role": "author"
+                }
+            ],
+            "description": "Adds PostgreSQL enhancements to Doctrine. Provides support for JSON, JSONB and some array data types. Provides functions, operators and common expressions used when working with JSON data, arrays and features related to text search.",
+            "keywords": [
+                "array data types",
+                "dbal",
+                "doctrine",
+                "json",
+                "jsonb",
+                "martin georgiev",
+                "postgres",
+                "postgresql",
+                "text search",
+                "tsvector"
+            ],
+            "support": {
+                "issues": "https://github.com/martin-georgiev/postgresql-for-doctrine/issues",
+                "source": "https://github.com/martin-georgiev/postgresql-for-doctrine/tree/v1.7.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/martin-georgiev",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-02-10T17:41:35+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",

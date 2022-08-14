@@ -32,11 +32,11 @@ class Game
         public readonly int $maxPlaytime,
         #[ORM\Column(type: 'integer')]
         public readonly int $minAge,
-        #[ORM\Column(type: 'json')]
+        #[ORM\Column(type: 'text[]')]
         public readonly array $categories,
-        #[ORM\Column(type: 'json')]
+        #[ORM\Column(type: 'text[]')]
         public readonly array $mechanics,
-        #[ORM\Column(type: 'json')]
+        #[ORM\Column(type: 'text[]')]
         public readonly array $designers,
         #[ORM\Column(type: 'string')]
         public readonly string $publisher,
@@ -46,7 +46,7 @@ class Game
         public readonly int $usersRated,
         #[ORM\Column(type: 'float')]
         public readonly float $averageWeight,
-        #[ORM\Column(type: 'json')]
+        #[ORM\Column(type: 'text[]')]
         public array $expansions = [],
         public readonly array $expansionTo = []
     ) {

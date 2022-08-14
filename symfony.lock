@@ -1,4 +1,7 @@
 {
+    "camelot/doctrine-postgres-bundle": {
+        "version": "v2.1.0"
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {

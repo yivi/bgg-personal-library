@@ -13,10 +13,13 @@
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bulma.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bulma.min.css"/>
+
 </head>
 <body>
 {% block body %}{% endblock %}
-
 <footer class="footer">
     {% block footer %}
         <div class="content has-text-centered">

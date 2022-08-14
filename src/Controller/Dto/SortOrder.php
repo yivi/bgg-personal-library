@@ -5,8 +5,8 @@ namespace App\Controller\Dto;
 enum SortOrder: string
 {
 
-    case ASC = 'asc';
+    case ASC = 'ASC';
 
-    case DESC = 'desc';
+    case DESC = 'DESC';
 
 }

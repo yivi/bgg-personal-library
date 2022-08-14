@@ -11,46 +11,65 @@
         maxPlaytime: '⌛️Max'|trans,
         yearPublished: '📅'
     } %}
-    <table class="table is-striped is-fullwidth is-hoverable">
-        <thead>
-        <tr>
-            {% for key, label in columns %}
-                <th>
-                    <a href="{{ path('library', {orderBy: key, order: sortColumn == key and sortOrder == 'desc' ? 'asc' : 'desc' }) }}">{{ label }}</a>
-                    {% if sortColumn == key %}{{ sortOrder == 'asc' ? '🔼' : '🔽' }}{% endif %}
-                </th>
-            {% endfor %}
-        </tr>
-        </thead>
-        {% for game in games %}
-            <tr>
-                <td class="title is-4">{{ game.name }}</td>
-                <td>{{ game.rating|round(1) }}</td>
-                <td>{{ game.minPlayers }}👤</td>
-                <td>{{ game.maxPlayers }}👤</td>
-                <td>{{ game.minPlaytime }}'</td>
-                <td>{{ game.maxPlaytime }}'</td>
-                <td>{{ game.yearPublished }}</td>
-            </tr>
-            <tr>
-                <td colspan="7" class="is-size-7">
-                    {% if game.mechanics is not empty %}
-                        <span class="title is-6">🛠</span>: {{ game.mechanics|join(', ') }}
-                    {% endif %}
-                    {% if game.categories is not empty %}
-                    <span class="title is-6">🧩</span>: {{ game.categories|join(', ') }}
-                    {% endif %}<br/>
-                    {% if game.designers is not empty %}
-                        <span class="title is-6">✍️</span>: {{ game.designers|join(', ') }}
-                    {% endif %}
-                    {% if game.publisher is not empty %}
-                        <span class="title is-6">🏭</span>: {{ game.publisher }}
-                    {% endif %}
-                    {% if game.expansions is not empty %}
-                        <span class="title is-6">⚙️</span> {{ game.expansions|join(', ') }}
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+    <section class="section">
+        <div class="container">
+            <div class="b-table">
+                <div class=" table-wrapper has-mobile-cards">
+                    <table id='games' class="table is-striped is-hoverable is-fullwidth">
+                        <thead>
+                        <tr>
+                            <th class="is-chevron-cell"></th>
+                            {% for key, label in columns %}
+                                <th class="is-sortable {{ sortColumn == key ? 'is-current-sort' : '' }}">
+                                    <a href="{{ path('library', {orderBy: key, order: sortColumn == key and sortOrder == 'DESC' ? 'ASC' : 'DESC' }) }}">{{ label }}</a>
+                                    {% if sortColumn == key %}{{ sortOrder == 'ASC' ? '🔼' : '🔽' }}{% endif %}
+                                </th>
+                            {% endfor %}
+                        </tr>
+                        </thead>
+                        <tbody data-controller="details">
+                        {% for game in games %}
+                            <tr>
+                                <td class="is-chevron-cell">
+                                    <button data-action="details#toggle"
+                                            data-details-bgg-id-param="{{ game.bggId }}">🔎
+                                    </button>
+                                </td>
+                                <td data-label="{{ columns.name }}" class="title is-6">{{ game.name }}</td>
+                                <td data-label="{{ columns.rating }}">{{ game.rating > 0 ? game.rating|round(1) : '❓' }}</td>
+                                <td data-label="{{ columns.minPlayers }}">{{ game.minPlayers }}👤</td>
+                                <td data-label="{{ columns.maxPlayers }}">{{ game.maxPlayers }}👤</td>
+                                <td data-label="{{ columns.minPlaytime }}">{{ game.minPlaytime > 0 ? game.minPlaytime ~ "'" : '🤷‍️' }}</td>
+                                <td data-label="{{ columns.maxPlaytime }}">{{ game.maxPlaytime > 0 ? game.maxPlaytime ~ "'" : '🤷‍️' }}</td>
+                                <td data-label="{{ columns.yearPublished }}">{{ game.yearPublished > 0 ? game.yearPublished : '🤔' }}</td>
+                            </tr>
+                            <tr id="details-{{ game.bggId }}" class="detail" style="display: none">
+                                <td colspan="8" class="is-size-7">
+                                    <div class="detail-container">
+                                        {% if game.mechanics is not empty %}
+                                            <span class="title is-6">🛠</span>: {{ game.mechanics|join(', ') }}
+                                        {% endif %}
+                                        {% if game.categories is not empty %}
+                                        <span class="title is-6">🧩</span>: {{ game.categories|join(', ') }}
+                                        {% endif %}<br/>
+                                        {% if game.designers is not empty %}
+                                            <span class="title is-6">✍️</span>: {{ game.designers|join(', ') }}
+                                        {% endif %}
+                                        {% if game.publisher is not empty %}
+                                            <span class="title is-6">🏭</span>: {{ game.publisher }}
+                                        {% endif %}
+                                        {% if game.expansions is not empty %}
+                                            <span class="title is-6">⚙️</span> {{ game.expansions|join(', ') }}
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
 {% endblock body %}

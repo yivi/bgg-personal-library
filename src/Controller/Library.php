@@ -26,7 +26,7 @@ class Library extends AbstractController
         return $this->render(
             'main.html.twig',
             [
-                'games' => $this->repository->findAll(),
+                'games' => $this->repository->findBy([], [$sortParam->sortColumn->value => $sortParam->sortOrder->value]),
                 'import' => $this->storage->fetchLatestImportData(),
                 'sort' => $sortParam,
             ]
