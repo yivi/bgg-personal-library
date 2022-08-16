@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8cdcdd530a4136b2fb42e4b7bc2932d6",
+    "content-hash": "7856c741ac65bc93954fb714fa2ea405",
     "packages": [
         {
             "name": "azjezz/psl",
@@ -1587,6 +1587,71 @@
             "time": "2022-05-05T09:31:05+00:00"
         },
         {
+            "name": "happyr/doctrine-specification",
+            "version": "v2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Happyr/Doctrine-Specification.git",
+                "reference": "668dd792152bcced48e36bd7c3fde3c1fe333cc0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Happyr/Doctrine-Specification/zipball/668dd792152bcced48e36bd7c3fde3c1fe333cc0",
+                "reference": "668dd792152bcced48e36bd7c3fde3c1fe333cc0",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "~2.5",
+                "php": ">=7.2",
+                "symfony/polyfill-php80": "^1.20",
+                "symfony/property-access": "^4.0 || ^5.2 || ^6.0"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~6.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Happyr\\DoctrineSpecification\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tobias Nyholm",
+                    "email": "tobias@happyr.com"
+                },
+                {
+                    "name": "Kacper Gunia",
+                    "email": "kacper@gunia.me"
+                },
+                {
+                    "name": "Peter Gribanov",
+                    "email": "info@peter-gribanov.ru"
+                }
+            ],
+            "description": "Specification Pattern for your Doctrine repositories",
+            "homepage": "http://developer.happyr.com/",
+            "keywords": [
+                "doctrine",
+                "repository",
+                "specification"
+            ],
+            "support": {
+                "issues": "https://github.com/Happyr/Doctrine-Specification/issues",
+                "source": "https://github.com/Happyr/Doctrine-Specification/tree/v2.0.2"
+            },
+            "time": "2022-01-19T15:25:49+00:00"
+        },
+        {
             "name": "laminas/laminas-code",
             "version": "4.6.0",
             "source": {
@@ -1891,16 +1956,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.6.4",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "135607f9ccc297d6923d49c2bcf309f509413215"
+                "reference": "367a8d9d5f7da2a0136422d27ce8840583926955"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/135607f9ccc297d6923d49c2bcf309f509413215",
-                "reference": "135607f9ccc297d6923d49c2bcf309f509413215",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/367a8d9d5f7da2a0136422d27ce8840583926955",
+                "reference": "367a8d9d5f7da2a0136422d27ce8840583926955",
                 "shasum": ""
             },
             "require": {
@@ -1930,9 +1995,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.6.4"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.7.0"
             },
-            "time": "2022-06-26T13:09:08+00:00"
+            "time": "2022-08-09T12:23:23+00:00"
         },
         {
             "name": "psr/cache",
@@ -5549,16 +5614,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.4.1",
+            "version": "v3.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "e939eae92386b69b49cfa4599dd9bead6bf4a342"
+                "reference": "e07cdd3d430cd7e453c31b36eb5ad6c0c5e43077"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/e939eae92386b69b49cfa4599dd9bead6bf4a342",
-                "reference": "e939eae92386b69b49cfa4599dd9bead6bf4a342",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/e07cdd3d430cd7e453c31b36eb5ad6c0c5e43077",
+                "reference": "e07cdd3d430cd7e453c31b36eb5ad6c0c5e43077",
                 "shasum": ""
             },
             "require": {
@@ -5609,7 +5674,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.4.1"
+                "source": "https://github.com/twigphp/Twig/tree/v3.4.2"
             },
             "funding": [
                 {
@@ -5621,7 +5686,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-17T05:48:52+00:00"
+            "time": "2022-08-12T06:47:24+00:00"
         },
         {
             "name": "webmozart/assert",
