@@ -2,4 +2,12 @@
 
 #searchBox {
   max-width: 900px;
+
+  .activator {
+    @include hamburger(2.5rem);
+    span {
+      color: white;
+    }
+  }
+
 }

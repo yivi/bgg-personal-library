@@ -13,13 +13,17 @@
     } %}
     <!-- search form -->
 
-    <section class="section">
+    <section class="section" data-controller="search">
         <article class="message is-info" id="searchBox">
-            <div class="message-header">
-                Buscar
-                <button class="delete"></button>
+            <div class="message-header" data-action="click->search#toggle">
+                Mostrar búsqueda
+                <button class="activator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
-            <div class="message-body {{ searchParams.activeSearch ? '' :'' }}">
+            <div class="message-body {{ searchParams.activeSearch ? '' :'is-hidden' }}">
                 {{ form(form) }}
             </div>
         </article>
@@ -63,7 +67,7 @@
                                 <td data-label="{{ columns.yearPublished }}">{{ game.yearPublished > 0 ? game.yearPublished : '🤔' }}</td>
                             </tr>
                             <tr id="details-{{ game.bggId }}" class="detail" style="display: none">
-                                <td colspan="8" class="is-size-7">
+                                <td colspan="10" class="is-size-7">
                                     <div class="detail-container">
                                         {% if game.mechanics is not empty %}
                                             <span class="title is-6">🛠</span>: {{ game.mechanics|join(', ') }}

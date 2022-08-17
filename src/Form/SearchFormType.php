@@ -27,20 +27,24 @@ class SearchFormType extends AbstractType
                 'required' => false,
                 'label'    => 'Jugadores 👥',
                 'help'     => 'Min 👥 <= X <= Max 👥',
+                'html5'    => true,
             ])
             ->add('exactPlayerCount', NumberType::class, [
                 'required' => false,
                 'label'    => 'Max Jugadores 👥',
+                'html5'    => true,
             ])
             ->add('minPlaytime', NumberType::class, [
                 'required' => false,
                 'label'    => '⏳Tiempo Mínimo',
                 'help'     => 'Duración en minutos',
+                'html5'    => true,
             ])
             ->add('maxPlaytime', NumberType::class, [
                 'required' => false,
                 'label'    => '⌛️Tiempo Máximo',
                 'help'     => 'Duración en minutos',
+                'html5'    => true,
             ])
             ->add(
                 'minWeight', NumberType::class,
@@ -49,6 +53,7 @@ class SearchFormType extends AbstractType
                     'label'     => 'Complejidad BGG Mínima',
                     'help'      => '1 a 5. <a href="https://boardgamegeek.com/wiki/page/Weight" target="_blank">Ver más</a>',
                     'help_html' => true,
+                    'html5'     => true,
                 ]
             )
             ->add(
@@ -58,18 +63,28 @@ class SearchFormType extends AbstractType
                     'label'     => 'Complejidad BGG Máxima',
                     'help'      => '1 a 5. <a href="https://boardgamegeek.com/wiki/page/Weight" target="_blank">Ver más</a>',
                     'help_html' => true,
+                    'html5'     => true,
                 ]
             )
-            ->add('recommendedAge', NumberType::class,
-                  [
-                      'required' => false,
-                      'label' => 'Edad Recomendada Máxima'
-                  ])
+            ->add(
+                'recommendedAge',
+                NumberType::class,
+                [
+                    'required' => false,
+                    'label'    => 'Edad Recomendada Máxima',
+                    'html5'    => true,
+                ]
+            )
             ->add('orderBy', HiddenType::class)
             ->add('order', HiddenType::class)
-            ->add('search', SubmitType::class, [
-                'label' => 'Buscar'
-            ]);
+            ->add(
+                'search',
+                SubmitType::class,
+                [
+                    'label' => 'Buscar',
+                    'attr' => ['class' => 'is-mobile is-rounded'],
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)
