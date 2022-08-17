@@ -21,4 +21,15 @@ class SearchParamDto
     ) {
     }
 
+    public function activeSearch(): bool
+    {
+        return $this->gameName
+               && $this->playerCount
+               && $this->exactPlayerCount
+               && $this->minPlaytime
+               && $this->maxPlaytime
+               && $this->minWeight
+               && $this->recommendedAge;
+    }
+
 }

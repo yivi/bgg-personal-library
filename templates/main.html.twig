@@ -1,19 +1,28 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     {% set columns = {
-        name: 'Name'|trans,
-        rating: '📈BGG'|trans,
-        minPlayers: '👥Min'|trans,
-        maxPlayers: '👥Max'|trans,
-        minPlaytime: '⏳Min'|trans,
-        maxPlaytime: '⌛️Max'|trans,
+        name: 'Nombre',
+        rating: '📈BGG',
+        minPlayers: '👥Min',
+        maxPlayers: '👥Max',
+        minPlaytime: '⏳Min',
+        maxPlaytime: '⌛️Max',
         averageWeight: '🏋🏋🏋',
         recommendedAge: '👶👴',
         yearPublished: '📅'
     } %}
     <!-- search form -->
+
     <section class="section">
-        {{ form(form) }}
+        <article class="message is-info" id="searchBox">
+            <div class="message-header">
+                Buscar
+                <button class="delete"></button>
+            </div>
+            <div class="message-body {{ searchParams.activeSearch ? '' :'' }}">
+                {{ form(form) }}
+            </div>
+        </article>
     </section>
 
     <!-- game table -->
