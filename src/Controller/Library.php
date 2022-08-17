@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Controller\Dto\SearchParamDto;
-use App\Controller\Dto\SortParamDto;
+use App\Form\SearchFormType;
 use App\Repository\GameRepository;
 use App\Service\ImportData;
 use App\Spec as AppSpec;
 use Happyr\DoctrineSpecification\Spec;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,7 +27,7 @@ class Library extends AbstractController
     ) {
     }
 
-    public function __invoke(SortParamDto $sortParam, SearchParamDto $searchParam): Response
+    public function __invoke(Request $request): Response
     {
         // andX() should be called "all()"
         $spec = Spec::andX();
@@ -38,46 +39,54 @@ class Library extends AbstractController
 
         ];
 
-        if ($searchParam->gameName) {
-            $spec->andX(AppSpec\GameNameContains::c($searchParam->gameName));
-        }
+        $form = $this->createForm(SearchFormType::class);
+        $form->handleRequest($request);
 
-        if ($searchParam->playerCount) {
-            $spec->andX(AppSpec\MaxPlayerCountEquals::c($searchParam->playerCount));
-        } elseif ($searchParam->exactPlayerCount > 0) {
-            $spec->andX(AppSpec\CanBePlayedWith::c($searchParam->playerCount));
-        }
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var SearchParamDto $searchParam */
+            $searchParam = $form->getData();
 
-        if ($searchParam->minPlaytime) {
-            $spec->andX(AppSpec\MinPlaytime::c($searchParam->minPlaytime));
-        }
+            if ($searchParam->gameName) {
+                $spec->andX(AppSpec\GameNameContains::c($searchParam->gameName));
+            }
 
-        if ($searchParam->maxPlaytime) {
-            $spec->andX(AppSpec\MaxPlaytime::c($searchParam->maxPlaytime));
-        }
+            if ($searchParam->exactPlayerCount) {
+                $spec->andX(AppSpec\MaxPlayerCountEquals::c($searchParam->exactPlayerCount));
+            } elseif ($searchParam->playerCount > 0) {
+                $spec->andX(AppSpec\CanBePlayedWith::c($searchParam->playerCount));
+            }
 
-        if ($searchParam->recommendedAge) {
-            $spec->andX(AppSpec\RecommendedAge::c($searchParam->recommendedAge));
-        }
+            if ($searchParam->minPlaytime) {
+                $spec->andX(AppSpec\MinPlaytime::c($searchParam->minPlaytime));
+            }
 
-        if ($searchParam->minWeight) {
-            $spec->andX(AppSpec\MinWeight::c($searchParam->minWeight));
-        }
+            if ($searchParam->maxPlaytime) {
+                $spec->andX(AppSpec\MaxPlaytime::c($searchParam->maxPlaytime));
+            }
 
-        if ($searchParam->maxWeight) {
-            $spec->andX(AppSpec\MaxWeight::c($searchParam->maxWeight));
-        }
+            if ($searchParam->recommendedAge) {
+                $spec->andX(AppSpec\RecommendedAge::c($searchParam->recommendedAge));
+            }
 
-        // sort order
-        $spec->andX(Spec::orderBy($sortParam->sortColumn->value, $sortParam->sortDirection->value));
+            if ($searchParam->minWeight) {
+                $spec->andX(AppSpec\MinWeight::c($searchParam->minWeight));
+            }
+
+            if ($searchParam->maxWeight) {
+                $spec->andX(AppSpec\MaxWeight::c($searchParam->maxWeight));
+            }
+
+            // sort order
+            $spec->andX(Spec::orderBy($searchParam->orderBy ?? 'name', $searchParam->order ?? 'DESC'));
+        }
 
         return $this->render(
             'main.html.twig',
             [
                 'games'        => $this->repository->match($spec),
                 'import'       => $this->storage->fetchLatestImportData(),
-                'sortParams'   => $sortParam,
-                'searchParams' => $searchParam,
+                'searchParams' => $searchParam ?? new SearchParamDto(),
+                'form'         => $form->createView(),
             ]
         );
     }

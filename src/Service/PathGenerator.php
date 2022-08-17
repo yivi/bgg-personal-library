@@ -16,10 +16,11 @@ class PathGenerator
 
     public function handle(string $key, bool $ascending, SearchParamDto $searchParam): string
     {
-        $args     = array_merge((array)$searchParam, ['orderBy' => $key, 'order' => $ascending ? null : 'DESC']);
-        $filtered = array_filter($args, fn($e) => $e !== null);
+        $args = [];
 
-        return $this->urlGenerator->generate('library', $filtered);
+        $args['search_form'] = array_filter(array_merge((array)$searchParam, ['orderBy' => $key, 'order' => ! $ascending ? null : 'ASC']), fn($e) => $e !== null);
+
+        return $this->urlGenerator->generate('library', $args);
     }
 
 }
