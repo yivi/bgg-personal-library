@@ -31,15 +31,15 @@ class BggCommunication
         $items = simplexml_load_string($xml);
 
         foreach ($items->children() as $item) {
-            $id            = (int)$item->attributes()['id'];
-            $gameType      = (string)$item->attributes()['type'];
-            $gameName      = (string)$item->name->attributes()['value'];
-            $yearPublished = (int)$item->yearpublished->attributes()['value'];
-            $minPlayers    = (int)$item->minplayers->attributes()['value'];
-            $maxPlayers    = (int)$item->maxplayers->attributes()['value'];
-            $minPlaytime   = (int)$item->minplaytime->attributes()['value'];
-            $maxPlaytime   = (int)$item->maxplaytime->attributes()['value'];
-            $minAge        = (int)$item->minage->attributes()['value'];
+            $id             = (int)$item->attributes()['id'];
+            $gameType       = (string)$item->attributes()['type'];
+            $gameName       = (string)$item->name->attributes()['value'];
+            $yearPublished  = (int)$item->yearpublished->attributes()['value'];
+            $minPlayers     = (int)$item->minplayers->attributes()['value'];
+            $maxPlayers     = (int)$item->maxplayers->attributes()['value'];
+            $minPlaytime    = (int)$item->minplaytime->attributes()['value'];
+            $maxPlaytime    = (int)$item->maxplaytime->attributes()['value'];
+            $recommendedAge = (int)$item->minage->attributes()['value'];
 
             $categories  = [];
             $mechanics   = [];
@@ -87,7 +87,7 @@ class BggCommunication
                              $maxPlayers,
                              $minPlaytime,
                              $maxPlaytime,
-                             $minAge,
+                             $recommendedAge,
                              $categories,
                              $mechanics,
                              $designers,

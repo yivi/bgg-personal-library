@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7856c741ac65bc93954fb714fa2ea405",
+    "content-hash": "3bea6304fcca492ee9f9a31e907588ba",
     "packages": [
         {
             "name": "azjezz/psl",
@@ -136,6 +136,52 @@
                 "source": "https://github.com/CamelotProject/doctrine-postgres-bundle/tree/v2.1.0"
             },
             "time": "2022-01-04T15:57:52+00:00"
+        },
+        {
+            "name": "dazet/type-utils",
+            "version": "v0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dazet/type-utils.git",
+                "reference": "c7272f0f3b6e3b56280018ee2e18145860cae23b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dazet/type-utils/zipball/c7272f0f3b6e3b56280018ee2e18145860cae23b",
+                "reference": "c7272f0f3b6e3b56280018ee2e18145860cae23b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-json": "*",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "^9.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dazet\\TypeUtil\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Damian Zaprzałek",
+                    "email": "dazet.me@gmail.com"
+                }
+            ],
+            "description": "Type casting utils for PHP.",
+            "support": {
+                "issues": "https://github.com/dazet/type-utils/issues",
+                "source": "https://github.com/dazet/type-utils/tree/v0.1.1"
+            },
+            "time": "2020-11-19T07:30:50+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -1585,6 +1631,47 @@
                 }
             ],
             "time": "2022-05-05T09:31:05+00:00"
+        },
+        {
+            "name": "gowork/safe",
+            "version": "v0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gowork/safe.git",
+                "reference": "ab661efd0d66eb6d8e40c28663d12bd29c69f3b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gowork/safe/zipball/ab661efd0d66eb6d8e40c28663d12bd29c69f3b6",
+                "reference": "ab661efd0d66eb6d8e40c28663d12bd29c69f3b6",
+                "shasum": ""
+            },
+            "require": {
+                "dazet/type-utils": "^0.1.0",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.1",
+                "symfony/console": "^5.0",
+                "symfony/error-handler": "^5.0",
+                "symfony/http-kernel": "^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GW\\Safe\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Type Safety Tools",
+            "support": {
+                "issues": "https://github.com/gowork/safe/issues",
+                "source": "https://github.com/gowork/safe/tree/v0.2.1"
+            },
+            "time": "2021-04-07T12:54:44+00:00"
         },
         {
             "name": "happyr/doctrine-specification",

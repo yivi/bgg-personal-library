@@ -31,7 +31,7 @@ class Game
         #[ORM\Column(type: 'integer')]
         public readonly int $maxPlaytime,
         #[ORM\Column(type: 'integer')]
-        public readonly int $minAge,
+        public readonly int $recommendedAge,
         #[ORM\Column(type: 'text[]')]
         public readonly array $categories,
         #[ORM\Column(type: 'text[]')]

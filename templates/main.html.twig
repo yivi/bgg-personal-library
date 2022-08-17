@@ -9,16 +9,35 @@
         maxPlayers: '👥Max'|trans,
         minPlaytime: '⏳Min'|trans,
         maxPlaytime: '⌛️Max'|trans,
+        averageWeight: '🏋🏋🏋',
+        recommendedAge: '👶👴',
         yearPublished: '📅'
     } %}
     <!-- search form -->
     <section class="section">
         <form>
             <label>Nombre: <input name="gameName" value="{{ searchParams.gameName }}"/></label><br/>
-            <label>Jugadores:
-                <input name="playerCount" value="{{ searchParams.exactPlayerCount ? '=' : '' }}{{ searchParams.playerCount > 0 ? searchParams.playerCount : '' }}"/></label><br/>
-            <label>Duración:
-                <input name="playtime" value="{{ searchParams.minPlaytime ? '>' : '' }}{{ searchParams.playtime > 0 ? searchParams.playtime : ''}}"/></label><br/>
+
+            <label>Pueden Jugar:
+                <input name="playerCount" value="{{ searchParams.playerCount }}"/></label><br/>
+
+            <label>Max Jugadores:
+                <input name="playerCount" value="{{ searchParams.exactPlayerCount }}"/></label><br/>
+
+            <label>Duración Max:
+                <input name="maxPlaytime" value="{{ searchParams.maxPlaytime }}"/></label><br/>
+
+            <label>Duración Min:
+                <input name="minPlaytime" value="{{ searchParams.minPlaytime }}"/></label><br/>
+
+            <label>Peso Min:
+                <input name="minWeight" value="{{ searchParams.minWeight }}"/></label><br/>
+
+            <label>Peso Max:
+                <input name="maxWeight" value="{{ searchParams.maxWeight }}"/></label><br/>
+
+            <label>Edad Recomendada:
+                <input name="recommendedAge" value="{{ searchParams.recommendedAge }}"/></label><br/>
 
             {% if currentSortColumn != 'name' or currentSortOrder != 'ASC' %}
                 <input type="hidden" name="orderBy" value="{{ currentSortColumn }}">
@@ -34,17 +53,19 @@
             <div class="b-table">
                 <div class=" table-wrapper has-mobile-cards">
                     <table id='games' class="table is-striped is-hoverable is-fullwidth">
+                        <!-- Header -->
                         <thead>
                         <tr>
                             <th class="is-chevron-cell"></th>
                             {% for key, label in columns %}
                                 <th class="is-sortable {{ currentSortColumn == key ? 'is-current-sort' : '' }}">
-                                    <a href="{{ libraryPath(key, currentSortOrder, searchParams) }}">{{ label }}</a>
+                                    <a href="{{ libraryPath(key, currentSortOrder == 'DESC', searchParams) }}">{{ label }}</a>
                                     {% if currentSortColumn == key %}{{ currentSortOrder == 'ASC' ? '🔼' : '🔽' }}{% endif %}
                                 </th>
                             {% endfor %}
                         </tr>
                         </thead>
+                        <!-- Table Body -->
                         <tbody data-controller="details">
                         {% for game in games %}
                             <tr>
@@ -59,6 +80,8 @@
                                 <td data-label="{{ columns.maxPlayers }}">{{ game.maxPlayers }}👤</td>
                                 <td data-label="{{ columns.minPlaytime }}">{{ game.minPlaytime > 0 ? game.minPlaytime ~ "'" : '🤷‍️' }}</td>
                                 <td data-label="{{ columns.maxPlaytime }}">{{ game.maxPlaytime > 0 ? game.maxPlaytime ~ "'" : '🤷‍️' }}</td>
+                                <td data-label="{{ columns.averageWeight }}">{{ game.averageWeight > 0 ? game.averageWeight|round(1) : '❓' }}</td>
+                                <td data-label="{{ columns.recommendedAge }}">{{ game.recommendedAge > 0 ? game.recommendedAge : '❌' }}</td>
                                 <td data-label="{{ columns.yearPublished }}">{{ game.yearPublished > 0 ? game.yearPublished : '🤔' }}</td>
                             </tr>
                             <tr id="details-{{ game.bggId }}" class="detail" style="display: none">

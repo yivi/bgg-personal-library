@@ -16,27 +16,10 @@ class PathGenerator
 
     public function handle(string $key, bool $ascending, SearchParamDto $searchParam): string
     {
-        $args = [
-            'orderBy' => $key,
-        ];
+        $args     = array_merge((array)$searchParam, ['orderBy' => $key, 'order' => $ascending ? null : 'DESC']);
+        $filtered = array_filter($args, fn($e) => $e !== null);
 
-        if ( ! $ascending) {
-            $args['order'] = 'DESC';
-        }
-
-        if ($searchParam->gameName !== '') {
-            $args['gameName'] = $searchParam->gameName;
-        }
-
-        if ($searchParam->playtime) {
-            $args['playtime'] = ($searchParam->minPlaytime ? '>' : '') . $searchParam->playtime;
-        }
-
-        if ($searchParam->playerCount) {
-            $args['playerCount'] = ($searchParam->exactPlayerCount ? '=' : '') . $searchParam->playerCount;
-        }
-
-        return $this->urlGenerator->generate('library', $args);
+        return $this->urlGenerator->generate('library', $filtered);
     }
 
 }

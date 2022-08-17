@@ -11,7 +11,6 @@ use App\Service\ImportData;
 use App\Spec as AppSpec;
 use Happyr\DoctrineSpecification\Spec;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,29 +32,40 @@ class Library extends AbstractController
         $spec = Spec::andX();
 
         $searchParams = [
-            'weight'       => '', // can be "<= weight" or ">= weight"
-            'minAge'       => '',
             'hasMechanic'  => '',
             'fromDesigner' => '',
             'inCategory'   => '',
 
         ];
 
-        if ($searchParam->playerCount > 0 && $searchParam->exactPlayerCount) {
+        if ($searchParam->gameName) {
+            $spec->andX(AppSpec\GameNameContains::c($searchParam->gameName));
+        }
+
+        if ($searchParam->playerCount) {
             $spec->andX(AppSpec\MaxPlayerCountEquals::c($searchParam->playerCount));
-        } elseif ($searchParam->playerCount > 0 && ! $searchParam->exactPlayerCount) {
+        } elseif ($searchParam->exactPlayerCount > 0) {
             $spec->andX(AppSpec\CanBePlayedWith::c($searchParam->playerCount));
         }
 
-
-        if ($searchParam->playtime > 0 && $searchParam->minPlaytime) {
-            $spec->andX(AppSpec\MinPlaytime::c($searchParam->playtime));
-        } elseif ($searchParam->playtime > 0 && ! $searchParam->minPlaytime) {
-            $spec->andX(AppSpec\MaxPlaytime::c($searchParam->playtime));
+        if ($searchParam->minPlaytime) {
+            $spec->andX(AppSpec\MinPlaytime::c($searchParam->minPlaytime));
         }
 
-        if ($searchParam->gameName !== '') {
-            $spec->andX(AppSpec\GameNameContains::c($searchParam->gameName));
+        if ($searchParam->maxPlaytime) {
+            $spec->andX(AppSpec\MaxPlaytime::c($searchParam->maxPlaytime));
+        }
+
+        if ($searchParam->recommendedAge) {
+            $spec->andX(AppSpec\RecommendedAge::c($searchParam->recommendedAge));
+        }
+
+        if ($searchParam->minWeight) {
+            $spec->andX(AppSpec\MinWeight::c($searchParam->minWeight));
+        }
+
+        if ($searchParam->maxWeight) {
+            $spec->andX(AppSpec\MaxWeight::c($searchParam->maxWeight));
         }
 
         // sort order

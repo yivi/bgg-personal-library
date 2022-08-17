@@ -24,7 +24,7 @@ class SortParamResolver implements ArgumentValueResolverInterface
         $q = $request->query;
         yield new SortParamDto(
             SortColumn::tryFrom((string)$q->get('orderBy')) ?? SortColumn::NAME,
-            SortDirection::tryFrom((string)$q->get('order')) ?? SortDirection::DESC
+            SortDirection::tryFrom((string)$q->get('order')) ?? SortDirection::ASC
         );
     }
 

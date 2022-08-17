@@ -8,13 +8,14 @@ class SearchParamDto
 {
 
     public function __construct(
-        public readonly string $gameName = '',
-        public readonly int $playerCount = 0,
-        public readonly bool $exactPlayerCount = false,
-        public readonly int $playtime = 0,
-        public readonly bool $minPlaytime = false,
-        public readonly float $weight = 0,
-        public readonly int $minAge = 0
+        public readonly ?string $gameName = null,
+        public readonly ?int $playerCount = null,
+        public readonly ?int $exactPlayerCount = null,
+        public readonly ?int $minPlaytime = null,
+        public readonly ?int $maxPlaytime = null,
+        public readonly ?float $minWeight = null,
+        public readonly ?float $maxWeight = null,
+        public readonly ?int $recommendedAge = null
     ) {
     }
 

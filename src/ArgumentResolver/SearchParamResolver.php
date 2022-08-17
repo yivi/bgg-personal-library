@@ -3,6 +3,7 @@
 namespace App\ArgumentResolver;
 
 use App\Controller\Dto\SearchParamDto;
+use GW\Safe\SafeRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -17,31 +18,18 @@ class SearchParamResolver implements ArgumentValueResolverInterface
 
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
-        $q = $request->query;
-
-        $playerCount      = 0;
-        $playerCountExact = false;
-        $playtime         = 0;
-        $minPlaytime      = false;
-
-        if (preg_match('|(=)?\s*(\d+)|', (string)$q->get('playerCount'), $m)) {
-            $playerCount      = (int)$m[2];
-            $playerCountExact = $m[1] === '=';
-        }
-
-        if (preg_match('{([<>])?\s*(\d+)}', (string)$q->get('playtime'), $m)) {
-            $playtime    = (int)$m[2];
-            $minPlaytime = $m[1] === '>';
-        }
+        $safeRequest = SafeRequest::mustBeFrom($request);
+        $q           = $safeRequest->query();
 
         yield new SearchParamDto(
-            (string)$q->get('gameName'),
-            $playerCount,
-            $playerCountExact,
-            $playtime,
-            $minPlaytime,
-            0,
-            0
+            $q->stringOrNull('ga'),
+            $q->intOrNull('playerCount'),
+            $q->intOrNull('exactPlayerCount'),
+            $q->intOrNull('minPlaytime'),
+            $q->intOrNull('maxPlaytime'),
+            $q->floatOrNull('minWeight'),
+            $q->floatOrNull('maxWeight'),
+            $q->intOrNull('recommendedAge')
         );
     }
 

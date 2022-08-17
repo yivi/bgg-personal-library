@@ -21,8 +21,8 @@ enum SortColumn: string
 
     case YEAR = 'yearPublished';
 
-    case WEIGHT = 'weight';
+    case AVERAGE_WEIGHT = 'averageWeight';
 
-    case MIN_AGE = 'minAge';
+    case RECOMMENDED_AGE = 'recommendedAge';
 
 }
