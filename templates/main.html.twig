@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    {% set sortColumn = sort.sortColumn.value %}
-    {% set sortOrder = sort.sortOrder.value %}
+    {% set currentSortColumn = sortParams.sortColumn.value %}
+    {% set currentSortOrder = sortParams.sortDirection.value %}
     {% set columns = {
         name: 'Name'|trans,
         rating: '📈BGG'|trans,
@@ -11,6 +11,24 @@
         maxPlaytime: '⌛️Max'|trans,
         yearPublished: '📅'
     } %}
+    <!-- search form -->
+    <section class="section">
+        <form>
+            <label>Nombre: <input name="gameName" value="{{ searchParams.gameName }}"/></label><br/>
+            <label>Jugadores:
+                <input name="playerCount" value="{{ searchParams.exactPlayerCount ? '=' : '' }}{{ searchParams.playerCount > 0 ? searchParams.playerCount : '' }}"/></label><br/>
+            <label>Duración:
+                <input name="playtime" value="{{ searchParams.minPlaytime ? '>' : '' }}{{ searchParams.playtime > 0 ? searchParams.playtime : ''}}"/></label><br/>
+
+            {% if currentSortColumn != 'name' or currentSortOrder != 'ASC' %}
+                <input type="hidden" name="orderBy" value="{{ currentSortColumn }}">
+                <input type="hidden" name="order" value="{{ currentSortOrder }}">
+            {% endif %}
+            <input type="submit" value="Buscar">
+        </form>
+    </section>
+
+    <!-- game table -->
     <section class="section">
         <div class="container">
             <div class="b-table">
@@ -20,9 +38,9 @@
                         <tr>
                             <th class="is-chevron-cell"></th>
                             {% for key, label in columns %}
-                                <th class="is-sortable {{ sortColumn == key ? 'is-current-sort' : '' }}">
-                                    <a href="{{ path('library', {orderBy: key, order: sortColumn == key and sortOrder == 'DESC' ? 'ASC' : 'DESC' }) }}">{{ label }}</a>
-                                    {% if sortColumn == key %}{{ sortOrder == 'ASC' ? '🔼' : '🔽' }}{% endif %}
+                                <th class="is-sortable {{ currentSortColumn == key ? 'is-current-sort' : '' }}">
+                                    <a href="{{ libraryPath(key, currentSortOrder, searchParams) }}">{{ label }}</a>
+                                    {% if currentSortColumn == key %}{{ currentSortOrder == 'ASC' ? '🔼' : '🔽' }}{% endif %}
                                 </th>
                             {% endfor %}
                         </tr>

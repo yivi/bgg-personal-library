@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Dto;
+namespace App\Controller\Dto\Enum;
 
 enum SortColumn: string
 {
@@ -20,4 +20,9 @@ enum SortColumn: string
     case MAX_TIME = 'maxPlaytime';
 
     case YEAR = 'yearPublished';
+
+    case WEIGHT = 'weight';
+
+    case MIN_AGE = 'minAge';
+
 }
