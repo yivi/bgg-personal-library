@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}Ludoteca Portal Lúdico{% endblock %}</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
@@ -14,27 +14,16 @@
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bulma.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bulma.min.css"/>
-
 </head>
 <body>
 {% block body %}{% endblock %}
 <footer class="footer">
     {% block footer %}
         <div class="content has-text-centered">
-            <p>
-                {% trans with {
-                    '%bggLink%': '<a href="https://www.boardgamegeek.com" title="BoardGameGeek">BGG</a>',
-                    '%userLink%': '<a href="https://boardgamegeek.com/collection/user/' ~ import.username  ~ '">' ~ import.username ~ '</a>' } %}%bggLink% Personal Library. Game data sourced from BGG directly. List of games sourced from user %userLink%.{% endtrans %}
+            <p>Ludoteca Portál Lúdico. Contenido de ludoteca y datos de juegos importados desde BGG, para <a href="https://boardgamegeek.com/collection/user/{{ import.username  }}">el usuario {{ import.username  }}</a></p>
 
-            </p>
-            <p>{% trans with {'%dateTime%': import.dateTime} %}Last data import performed at %dateTime%{% endtrans %}
-                .</p>
-            <p>{% trans with {
-                    '%openGitHubLink%': '<a href="https://github.com/yivi/bgg-personal-library" title="Github Repo">',
-                    '%closeGitHubLink%': '</a>'
-                } %}Code can be found %openGitHubLink%here%closeGitHubLink%. Live long and prosper. 🖖{% endtrans %}</p>
+            <p>Última importación: {{ import.dateTime }}</p>
+            <p class="is-size-2"> 🖖</p>
         </div>
     {% endblock %}
 </footer>
