@@ -16,3 +16,16 @@
 span.arrow {
   cursor: pointer;
 }
+
+.form-button {
+  width: 50%;
+
+  &.is-left {
+    float: left;
+  }
+
+  &.is-right {
+    float: right;
+    text-align: right;
+  }
+}
