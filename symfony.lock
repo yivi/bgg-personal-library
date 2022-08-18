@@ -200,6 +200,9 @@
             "templates/base.html.twig"
         ]
     },
+    "symfony/ux-turbo": {
+        "version": "v2.3.0"
+    },
     "symfony/var-dumper": {
         "version": "v6.1.3"
     },

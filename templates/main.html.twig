@@ -24,7 +24,7 @@
                 </button>
             </div>
             <div class="message-body {{ searchParams.activeSearch ? '' :'is-hidden' }}">
-                {{ form(form, {'action': path('library')}) }}
+                {{ form(form, {'action': path('library'), 'attr': { 'data-turbo-frame': 'game-table-frame'} } ) }}
             </div>
         </article>
     </section>
@@ -32,6 +32,7 @@
 
     <!-- game table -->
     <section class="section">
+        <turbo-frame id="game-table-frame">
         <!-- mobile sort navigation -->
         <div class="box is-hidden-tablet is-hidden-desktop" style="max-width: 900px" id="sortBox">
             <form action="{{ path('library') }}" method="get">
@@ -122,6 +123,7 @@
                 </div>
             </div>
         </div>
+        </turbo-frame>
     </section>
 
 {% endblock body %}
