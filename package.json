@@ -8,6 +8,7 @@
         "bulma": "^0.9.4",
         "bulma-responsive-tables": "^1.2.5",
         "core-js": "^3.23.0",
+        "insights-js": "^1.2.11",
         "jquery": "^3.6.0",
         "regenerator-runtime": "^0.13.9",
         "sass": "^1.54.4",
@@ -21,5 +22,6 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
-    }
+    },
+    "dependencies": {}
 }

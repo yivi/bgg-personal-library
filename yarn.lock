@@ -2580,6 +2580,11 @@ inherits@2.0.3:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
   integrity sha512-x00IRNXNy63jwGkJmzPigoySHbaqpNuzKbBOmzK+g2OdZpQ9w+sxCN+VSB3ja7IAge2OP2qpfxTjeNcyjmW1uw==
 
+insights-js@^1.2.11:
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/insights-js/-/insights-js-1.2.11.tgz#73188b919b57faedffe5585f77df80f7265ac62a"
+  integrity sha512-rmNnMM2LnOmKVJAZOMmeZ6GYMm98ztGMC4nA7KUOTBoPBpce8uUx++ZPJDnU02ORH6lCzBCy0AOLwsC/v1dp1Q==
+
 interpret@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-2.2.0.tgz#1a78a0b5965c40a5416d007ad6f50ad27c417df9"
