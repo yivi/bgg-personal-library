@@ -24,7 +24,7 @@ class MaxWeight extends BaseSpecification
 
     protected function getSpec(): Filter|QueryModifier
     {
-        return Spec::lte('maxWeight', $this->maxWeight);
+        return Spec::lte('averageWeight', $this->maxWeight);
     }
 
 }

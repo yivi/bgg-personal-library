@@ -24,7 +24,7 @@ class MinWeight extends BaseSpecification
 
     protected function getSpec(): Filter|QueryModifier
     {
-        return Spec::lte('minWeight', $this->minWeight);
+        return Spec::lte('averageWeight', $this->minWeight);
     }
 
 }
