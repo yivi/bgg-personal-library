@@ -5,9 +5,14 @@
 
   .activator {
     @include hamburger(2.5rem);
+
     span {
       color: white;
     }
   }
 
+}
+
+span.arrow {
+  cursor: pointer;
 }
