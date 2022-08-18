@@ -39,7 +39,7 @@ WORKDIR /var/www/html
 COPY yarn.lock package.json webpack.config.js ./
 COPY assets ./assets
 
-RUN yarn install
+RUN yarn install --force
 RUN yarn encore prod
 
 ## Install roadrunner to serve application
