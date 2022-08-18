@@ -24,13 +24,42 @@
                 </button>
             </div>
             <div class="message-body {{ searchParams.activeSearch ? '' :'is-hidden' }}">
-                {{ form(form) }}
+                {{ form(form, {'action': path('library')}) }}
             </div>
         </article>
     </section>
 
+
     <!-- game table -->
     <section class="section">
+        <!-- mobile sort navigation -->
+        <div class="box is-hidden-tablet is-hidden-desktop" style="max-width: 900px" id="sortBox">
+            <form action="{{ path('library') }}" method="get">
+                <div class="select is-rounded is-small">
+                    <select name="search_form[orderBy]">
+                        {% for key, label in columns %}
+                            <option value="{{ key }}" {{ key == searchParams.orderBy ? 'selected' : '' }}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="select is-rounded is-small">
+                    <select name="search_form[order]">
+                        <option value="ASC" {{ searchParams.order == 'ASC' ? 'selected' : '' }}>A...Z</option>
+                        <option value="DESC" {{ searchParams.order != 'ASC' ? 'selected' : '' }}>Z...A</option>
+                    </select>
+                </div>
+
+                <input class="button is-outlined is-small" type="submit" value="Ordenar">
+                <input type="hidden" name="search_form[gameName]" value="{{ searchParams.gameName }}">
+                <input type="hidden" name="search_form[playerCount]" value="{{ searchParams.playerCount }}">
+                <input type="hidden" name="search_form[exactPlayerCount]" value="{{ searchParams.exactPlayerCount }}">
+                <input type="hidden" name="search_form[maxPlaytime]" value="{{ searchParams.maxPlaytime }}">
+                <input type="hidden" name="search_form[minPlaytime]" value="{{ searchParams.minPlaytime }}">
+                <input type="hidden" name="search_form[minWeight]" value="{{ searchParams.minWeight }}">
+                <input type="hidden" name="search_form[maxWeight]" value="{{ searchParams.maxWeight }}">
+                <input type="hidden" name="search_form[recommendedAge]" value="{{ searchParams.recommendedAge }}">
+            </form>
+        </div>
         <div class="container">
             <div class="b-table">
                 <div class=" table-wrapper has-mobile-cards">
