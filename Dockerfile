@@ -51,7 +51,7 @@ WORKDIR /var/www/html
 
 COPY --from=roadrunner /usr/bin/rr /usr/local/bin/rr
 COPY --from=composer_build /var/www/html /var/www/html
-COPY .env .rr.json /var/www/html/
+COPY .env .rr.yaml /var/www/html/
 
 EXPOSE 18997
 
