@@ -17,10 +17,15 @@ task('deploy:frontend', function () {
 });
 
 // Hosts
-
 host('ludoteca-portal-ludico.yivoff.com')
-    ->set('remote_user', 'deployer')
-    ->set('deploy_path', '/var/www/ludoteca-portal-ludico');
+    ->setRemoteUser('deployer')
+    ->setDeployPath('/var/www/ludoteca-portal-ludico');
+
+host('staging')
+    ->setHostname('ludoteca-portal-ludico.yivoff.com')
+    ->setRemoteUser('deployer')
+    ->setDeployPath('/var/www/ludo-staging')
+;
 
 // Hooks
 
