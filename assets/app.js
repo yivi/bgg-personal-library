@@ -11,8 +11,8 @@ import './styles/app.scss';
 // start the Stimulus application
 import './bootstrap';
 
-import { init, track, parameters } from "insights-js"
+import { init, trackPages } from "insights-js"
 
 init("tW9HZbuLQRgc6Mut")
 
-track.trackPages()
+trackPages()
