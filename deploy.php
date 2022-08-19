@@ -13,8 +13,8 @@ add('shared_files', []);
 add('shared_dirs', []);
 add('writable_dirs', []);
 
-task('deploy:frontend', function () {
-    run('cd {{release_or_current_path}} && yarn install --force && yarn encore prod');
+task('deploy:frontend-build', function () {
+    run("cd {{release_path}} && {{bin/yarn}} encore prod");
 });
 
 // Hosts
@@ -30,6 +30,6 @@ host('staging')
 ;
 
 // Hooks
-
 after('deploy:failed', 'deploy:unlock');
 after('deploy:vendors', 'yarn:install');
+after('yarn:install', 'deploy:frontend-build');
