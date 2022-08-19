@@ -3,6 +3,7 @@
 namespace Deployer;
 
 require 'recipe/symfony.php';
+require 'contrib/yarn.php';
 
 // Config
 
@@ -25,9 +26,10 @@ host('staging')
     ->setHostname('ludoteca-portal-ludico.yivoff.com')
     ->setRemoteUser('deployer')
     ->setDeployPath('/var/www/ludo-staging')
+    ->set('branch', 'deploy-fixes')
 ;
 
 // Hooks
 
 after('deploy:failed', 'deploy:unlock');
-after('deploy:vendors', 'deploy:frontend');
+after('deploy:vendors', 'yarn:install');

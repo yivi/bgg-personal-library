@@ -11,4 +11,6 @@ import './styles/app.scss';
 // start the Stimulus application
 import './bootstrap';
 
-console.log('test test test');
+import posthog from 'posthog-js'
+
+posthog.init('phc_utktNWm4s3MqMHNWd5i4PAPaLgFkLe8cTGukQTz56ZF', { api_host: 'https://app.posthog.com' })
