@@ -18,7 +18,8 @@ task('deploy:frontend-build', function () {
 });
 
 // Hosts
-host('ludoteca-portal-ludico.yivoff.com')
+host('prod')
+    ->setHostname('ludoteca-portal-ludico.yivoff.com')
     ->setRemoteUser('deployer')
     ->setDeployPath('/var/www/ludoteca-portal-ludico');
 
