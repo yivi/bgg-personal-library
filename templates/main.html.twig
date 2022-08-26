@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     {% set columns = {
-        name: 'Nombre',
-        rating: '📈BGG',
-        minPlayers: '👥Min',
-        maxPlayers: '👥Max',
-        minPlaytime: '⏳Min',
-        maxPlaytime: '⌛️Max',
-        averageWeight: '🏋🏋🏋',
-        recommendedAge: '👶👴',
-        yearPublished: '📅'
+        name: {label: 'Nombre', icon: '', iconCode: ''},
+        rating: { label: 'Puntuación BGG', icon: 'medal-line', iconCode: '904'},
+        minPlayers: {label: 'Jugadores Min', icon: 'group-line', iconCode: '903'},
+        maxPlayers: {label: 'Jugadores Max', icon: 'team-line', iconCode: '906'},
+        minPlaytime: {label: 'Duración Min', icon: 'time-line', iconCode: '907'},
+        maxPlaytime: {label: 'Duración Max', icon: 'timer-line', iconCode: '908'},
+        averageWeight: {label: 'Peso BGG', icon: 'scales-2-line', iconCode: '905'},
+        recommendedAge: {label: 'Edad Min', icon: 'cake-2-line', iconCode: '901'},
+        yearPublished: {label: 'Año', icon: 'calendar-line', iconCode: '902'}
     } %}
     <!-- search form -->
 
@@ -29,7 +29,6 @@
         </article>
     </section>
 
-
     <!-- game table -->
     <section class="section">
         <turbo-frame id="game-table-frame">
@@ -38,8 +37,8 @@
                 <form action="{{ path('library') }}" method="get" data-turbo-action="replace">
                     <div class="select is-rounded is-small">
                         <select name="search_form[orderBy]">
-                            {% for key, label in columns %}
-                                <option value="{{ key }}" {{ key == searchParams.orderBy ? 'selected' : '' }}>{{ label }}</option>
+                            {% for key, column in columns %}
+                                <option value="{{ key }}" {{ key == searchParams.orderBy ? 'selected' : '' }}>{{ column.label }}{% if column.iconCode %} &#xe{{ column.iconCode }};{% endif %}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -69,10 +68,19 @@
                             <thead>
                             <tr>
                                 <th class="is-chevron-cell"></th>
-                                {% for key, label in columns %}
-                                    <th class="is-sortable {{ searchParams.orderBy == key ? 'is-current-sort' : '' }}">
-                                        <a data-turbo-action="replace" href="{{ libraryPath(key, searchParams.order != 'ASC' and key == searchParams.orderBy, searchParams) }}">{{ label }}</a>
-                                        {% if searchParams.orderBy == key %}{{ searchParams.order == 'ASC' ? '🔼' : '🔽' }}{% endif %}
+                                {% for key, column in columns %}
+                                    <th {{ searchParams.orderBy == key ? 'is-current-sort' : '' }}">
+                                    <a data-turbo-action="replace"
+                                       href="{{ libraryPath(key, searchParams.order != 'ASC' and key == searchParams.orderBy, searchParams) }}">
+                                        {% if column.icon %}
+                                            <span class="icon"><i class="{{ column.icon }}"></i></span>
+                                        {% else %}{{ column.label }}
+                                        {% endif %}
+                                    </a>
+
+                                    {% if searchParams.orderBy == key %}<span class="icon">
+                                        <i class="arrow-{{ searchParams.order == 'ASC' ? 'up' : 'down' }}"></i>
+                                        </span>{% endif %}
                                     </th>
                                 {% endfor %}
                             </tr>
@@ -86,15 +94,17 @@
                                           data-action="click->details#toggle"
                                           data-details-bgg-id-param="{{ game.bggId }}">↘︎</span>
                                     </td>
-                                    <td data-label="{{ columns.name }}" class="title is-6"><a href="https://boardgamegeek.com/boardgame/{{ game.bggId }}">{{ game.name }}</a></td>
-                                    <td data-label="{{ columns.rating }}">{{ game.rating > 0 ? game.rating|round(1) : '❓' }}</td>
-                                    <td data-label="{{ columns.minPlayers }}">{{ game.minPlayers }}👤</td>
-                                    <td data-label="{{ columns.maxPlayers }}">{{ game.maxPlayers }}👤</td>
-                                    <td data-label="{{ columns.minPlaytime }}">{{ game.minPlaytime > 0 ? game.minPlaytime ~ "'" : '🤷‍️' }}</td>
-                                    <td data-label="{{ columns.maxPlaytime }}">{{ game.maxPlaytime > 0 ? game.maxPlaytime ~ "'" : '🤷‍️' }}</td>
-                                    <td data-label="{{ columns.averageWeight }}">{{ game.averageWeight > 0 ? game.averageWeight|round(1) : '❓' }}</td>
-                                    <td data-label="{{ columns.recommendedAge }}">{{ game.recommendedAge > 0 ? game.recommendedAge : '❌' }}</td>
-                                    <td data-label="{{ columns.yearPublished }}">{{ game.yearPublished > 0 ? game.yearPublished : '🤔' }}</td>
+                                    <td data-label="{{ columns.name.label }}" class="title is-6">
+                                        <a href="https://boardgamegeek.com/boardgame/{{ game.bggId }}">{{ game.name }}</a>
+                                    </td>
+                                    <td data-label="{{ columns.rating.label }}">{{ game.rating > 0 ? game.rating|round(1) : '❓' }}</td>
+                                    <td data-label="{{ columns.minPlayers.label }}">{{ game.minPlayers }}👤</td>
+                                    <td data-label="{{ columns.maxPlayers .label }}">{{ game.maxPlayers }}👤</td>
+                                    <td data-label="{{ columns.minPlaytime.label }}">{{ game.minPlaytime > 0 ? game.minPlaytime ~ "'" : '🤷‍️' }}</td>
+                                    <td data-label="{{ columns.maxPlaytime.label }}">{{ game.maxPlaytime > 0 ? game.maxPlaytime ~ "'" : '🤷‍️' }}</td>
+                                    <td data-label="{{ columns.averageWeight.label }}">{{ game.averageWeight > 0 ? game.averageWeight|round(1) : '❓' }}</td>
+                                    <td data-label="{{ columns.recommendedAge.label }}">{{ game.recommendedAge > 0 ? game.recommendedAge : '❌' }}</td>
+                                    <td data-label="{{ columns.yearPublished.label }}">{{ game.yearPublished > 0 ? game.yearPublished : '🤔' }}</td>
                                 </tr>
                                 <tr id="details-{{ game.bggId }}" class="detail" style="display: none">
                                     <td colspan="10" class="is-size-7">

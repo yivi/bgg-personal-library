@@ -26,31 +26,37 @@ class SearchFormType extends AbstractType
             ])
             ->add('playerCount', NumberType::class, [
                 'required' => false,
-                'label'    => 'Jugadores 👥',
-                'help'     => 'Min 👥 <= X <= Max 👥',
+                'label'    => 'Jugadores <span class="icon"><i class="group-line"></i></span>',
+                'label_html' => true,
+                'help'     => 'Min <span class="icon"><i class="group-line"></i></span> <= X <= Max <span class="icon"><i class="team-line"></i></span>',
+                'help_html' => true,
                 'html5'    => true,
             ])
             ->add('exactPlayerCount', NumberType::class, [
                 'required' => false,
-                'label'    => 'Max Jugadores 👥',
+                'label'    => 'Max Jugadores <span class="icon"><i class="team-line"></i></span>',
+                'label_html' => true,
                 'html5'    => true,
             ])
             ->add('minPlaytime', NumberType::class, [
                 'required' => false,
-                'label'    => '⏳Tiempo Mínimo',
+                'label'    => '<span class="icon"><i class="time-line"></i></span> Tiempo Mínimo',
+                'label_html' => true,
                 'help'     => 'Duración en minutos',
                 'html5'    => true,
             ])
             ->add('maxPlaytime', NumberType::class, [
                 'required' => false,
-                'label'    => '⌛️Tiempo Máximo',
+                'label'    => '<span class="icon"><i class="timer-line"></i></span>️Tiempo Máximo',
+                'label_html' => true,
                 'help'     => 'Duración en minutos',
                 'html5'    => true,
             ])
             ->add(
                 'minWeight', NumberType::class, [
                                'required'  => false,
-                               'label'     => 'Complejidad BGG Mínima',
+                               'label'     => 'Complejidad BGG Mínima <span class="icon"><i class="scales-2-line"></i></span>',
+                               'label_html' => true,
                                'help'      => '1 a 5. <a href="https://boardgamegeek.com/wiki/page/Weight" target="_blank">Ver más</a>',
                                'help_html' => true,
                                'html5'     => true,
@@ -59,7 +65,8 @@ class SearchFormType extends AbstractType
             ->add(
                 'maxWeight', NumberType::class, [
                                'required'  => false,
-                               'label'     => 'Complejidad BGG Máxima',
+                               'label'     => 'Complejidad BGG Máxima <span class="icon"><i class="scales-2-line"></i></span>',
+                               'label_html' => true,
                                'help'      => '1 a 5. <a href="https://boardgamegeek.com/wiki/page/Weight" target="_blank">Ver más</a>',
                                'help_html' => true,
                                'html5'     => true,
